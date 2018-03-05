@@ -32,9 +32,11 @@ share {
     [ 'cp src/inc/*.h %{.install.prefix}/inc' ],
   ];
 
-  gather sub {
-    my $build = shift;
-    $build->runtime_prop->{version} =
-       join '.', split //, $build->runtime_prop->{version};
-  };
+  meta->after_hook(
+    gather_share => sub {
+      my($build) = @_;
+      $build->runtime_prop->{version} =
+         join '.', split //, $build->runtime_prop->{version};
+    },
+  );
 };
