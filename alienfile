@@ -1,0 +1,40 @@
+# -*- mode: perl; -*-
+use strict;
+use warnings;
+use alienfile;
+use Data::Dumper;
+
+probe sub {
+  chomp(my $type = `uname -m`);
+  shift->runtime_prop->{kent_machtype} = $type;
+  return 'share';
+};
+probe [ 'env | grep -q ^KENT_SRC' ];
+
+share {
+
+  requires 'Archive::Zip';
+
+  start_url 'http://hgdownload.cse.ucsc.edu/admin/';
+
+  plugin Download => (
+      filter => qr/\.zip$/,
+  		version => qr/v(\d+)\.zip$/,
+  );
+
+  plugin 'Extract' => ( format => 'zip' );
+
+  build [
+    [ '%{make} -C src/lib CC=%{perl.config.cc} CFLAGS="-fPIC -g -Wall -O2"' ],
+    [ 'mkdir -p %{.install.prefix}/%{.runtime.kent_machtype}/lib' ],
+    [ 'cp src/lib/%{.runtime.kent_machtype}/jkweb.a %{.install.prefix}/%{.runtime.kent_machtype}/lib' ],
+    [ 'mkdir -p %{.install.prefix}/inc' ],
+    [ 'cp src/inc/*.h %{.install.prefix}/inc' ],
+  ];
+
+  gather sub {
+    my $build = shift;
+    $build->runtime_prop->{version} =
+       join '.', split //, $build->runtime_prop->{version};
+  };
+};
