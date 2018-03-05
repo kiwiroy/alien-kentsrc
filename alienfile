@@ -26,8 +26,8 @@ share {
 
   build [
     [ '%{make} -C src/lib CC=%{perl.config.cc} CFLAGS="-fPIC -g -Wall -O2"' ],
-    [ 'mkdir -p %{.install.prefix}/%{.runtime.kent_machtype}/lib' ],
-    [ 'cp src/lib/%{.runtime.kent_machtype}/jkweb.a %{.install.prefix}/%{.runtime.kent_machtype}/lib' ],
+    [ 'mkdir -p %{.install.prefix}/lib/%{.runtime.kent_machtype}' ],
+    [ 'cp src/lib/%{.runtime.kent_machtype}/jkweb.a %{.install.prefix}/lib/%{.runtime.kent_machtype}/' ],
     [ 'mkdir -p %{.install.prefix}/inc' ],
     [ 'cp src/inc/*.h %{.install.prefix}/inc' ],
   ];
