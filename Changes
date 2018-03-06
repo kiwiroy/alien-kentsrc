@@ -1,5 +1,8 @@
 Revision history for perl distribution Alien-KentSrc
 
+0.3 Not Released
+ - include jkweb.a as well
+
 0.2 2018-03-07T11:36:27+1300
  - resolve a pthread link issue
  - travis testing on linux and osx
