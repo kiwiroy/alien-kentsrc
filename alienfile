@@ -32,7 +32,7 @@ share {
     [ '%{make} -C src/htslib CC=%{perl.config.cc} CFLAGS="-fPIC -g -Wall -O2"' ],
     ## copy library files into place
     [ 'mkdir -p %{.install.prefix}/lib/%{.runtime.kent_machtype}' ],
-    [ 'cp src/lib/%{.runtime.kent_machtype}/jkweb.a %{.install.prefix}/lib/%{.runtime.kent_machtype}/' ],
+    [ 'cp src/lib/%{.runtime.kent_machtype}/jkweb.a %{.install.prefix}/lib/%{.runtime.kent_machtype}/libjkweb.a' ],
     [ 'cp src/htslib/libhts.a %{.install.prefix}/lib/%{.runtime.kent_machtype}/' ],
     ## copy include files
     [ 'mkdir -p %{.install.prefix}/inc' ],
@@ -53,9 +53,8 @@ share {
         join('', '-I', catfile $build->install_prop->{prefix}, 'inc'),
         ;
       $build->runtime_prop->{libs} = join ' ',
-        catfile($build->install_prop->{prefix}, 'lib', $build->runtime_prop->{kent_machtype}, 'jkweb.a'),
-        catfile($build->install_prop->{prefix}, 'lib', $build->runtime_prop->{kent_machtype}, 'libhts.a'),
-        '-lz', '-lssl';
+        join('', '-L', catfile $build->install_prop->{prefix}, 'lib', $build->runtime_prop->{kent_machtype}),
+        '-ljkweb', '-lhts', '-lz', '-lssl';
     },
   );
 };

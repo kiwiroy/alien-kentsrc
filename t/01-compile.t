@@ -7,7 +7,7 @@ use Alien::KentSrc;
 alien_ok 'Alien::KentSrc';
 
 my $xs = do { local $/ = undef; <DATA> };
-xs_ok $xs, with_subtest {
+xs_ok { xs => $xs, verbose => $ENV{TEST_VERBOSE} }, with_subtest {
   is CompileTest->check(), 'CompileTest',
     'CompileTest::check() returns CompileTest';
 };
