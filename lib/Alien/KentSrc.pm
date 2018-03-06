@@ -22,6 +22,16 @@ __END__
 
 Alien::KentSrc - Fetch/build/stash Kent src from http://hgdownload.cse.ucsc.edu/admin/
 
+=begin HTML
+
+<!-- Travis -->
+<a href="https://travis-ci.org/kiwiroy/alien-kentsrc">
+  <img src="https://travis-ci.org/kiwiroy/alien-kentsrc.svg?branch=master"
+       alt="Travis Build Status">
+</a>
+
+=end HTML
+
 =head1 DESCRIPTION
 
 Download, build and install Kent src library from
