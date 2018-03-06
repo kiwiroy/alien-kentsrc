@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 use alienfile;
-use Data::Dumper;
+use File::Spec::Functions qw{catfile};
 
 probe sub {
   chomp(my $type = `uname -m`);
@@ -25,18 +25,36 @@ share {
   plugin 'Extract' => ( format => 'zip' );
 
   build [
+    ## make jkweb.a
     [ '%{make} -C src/lib CC=%{perl.config.cc} CFLAGS="-fPIC -g -Wall -O2"' ],
+    ## make htslib.a
+    [ '%{make} -C src/htslib CC=%{perl.config.cc} CFLAGS="-fPIC -g -Wall -O2"' ],
+    ## copy library files into place
     [ 'mkdir -p %{.install.prefix}/lib/%{.runtime.kent_machtype}' ],
     [ 'cp src/lib/%{.runtime.kent_machtype}/jkweb.a %{.install.prefix}/lib/%{.runtime.kent_machtype}/' ],
+    [ 'cp src/htslib/libhts.a %{.install.prefix}/lib/%{.runtime.kent_machtype}/' ],
+    ## copy include files
     [ 'mkdir -p %{.install.prefix}/inc' ],
     [ 'cp src/inc/*.h %{.install.prefix}/inc' ],
+    [ 'mkdir -p %{.install.prefix}/inc/htslib' ],
+    [ 'cp src/htslib/htslib/*.h %{.install.prefix}/inc/htslib/' ],
   ];
 
   meta->after_hook(
     gather_share => sub {
       my($build) = @_;
       $build->runtime_prop->{version} =
-         join '.', split //, $build->runtime_prop->{version};
+        join '.', split //, $build->runtime_prop->{version};
+      $build->runtime_prop->{cflags} = join ' ',
+        '-Wno-format',
+        '-Wformat=0',
+        join('', '-DMACHTYPE_', $build->runtime_prop->{kent_machtype}),
+        join('', '-I', catfile $build->install_prop->{prefix}, 'inc'),
+        ;
+      $build->runtime_prop->{libs} = join ' ',
+        catfile($build->install_prop->{prefix}, 'lib', $build->runtime_prop->{kent_machtype}, 'jkweb.a'),
+        catfile($build->install_prop->{prefix}, 'lib', $build->runtime_prop->{kent_machtype}, 'libhts.a'),
+        '-lz', '-lssl';
     },
   );
 };
