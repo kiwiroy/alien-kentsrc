@@ -70,3 +70,5 @@
 ^README\.pod
 ^\.ship.conf$
 ^\.travis\.yml$
+^_alien/
+^Alien-KentSrc.*/
