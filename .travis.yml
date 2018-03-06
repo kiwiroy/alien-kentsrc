@@ -2,6 +2,12 @@ language: "perl"
 
 sudo: false
 
+addons:
+  apt:
+    packages:
+    - libssl-dev
+    - zlib1g-dev
+
 perl:
   - "5.14"
   - "5.26"
