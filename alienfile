@@ -9,7 +9,8 @@ probe sub {
   shift->runtime_prop->{kent_machtype} = $type;
   return 'share';
 };
-probe [ 'env | grep -q ^KENT_SRC' ];
+probe [ 'env | grep -q ^KENT_SRC=' ];
+probe [ 'env | grep -q ^MACHTYPE=' ];
 
 share {
 

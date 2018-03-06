@@ -35,4 +35,16 @@ http://hgdownload.cse.ucsc.edu/admin/jksrc.vNNN.zip
   $ENV{KENT_SRC} = Alien::KentSrc->dist_dir;
   $ENV{MACHTYPE} = Alien::KentSrc->machtype;
 
+=head1 METHODS
+
+In addition to those provide by the parent class L<Alien::Base>, Alien::KentSrc
+defines the following new methods.
+
+=head2 machtype
+
+  # "x86_64"
+  Alien::KentSrc->machtype;
+
+Return the B<MACHTYPE> that I<jkweb.a> was built with.
+
 =cut
