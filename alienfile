@@ -54,7 +54,7 @@ share {
         ;
       $build->runtime_prop->{libs} = join ' ',
         join('', '-L', catfile $build->install_prop->{prefix}, 'lib', $build->runtime_prop->{kent_machtype}),
-        '-ljkweb', '-lhts', '-lz', '-lssl';
+        '-ljkweb', '-lhts', '-lz', '-lssl', '-lpthread';
     },
   );
 };
