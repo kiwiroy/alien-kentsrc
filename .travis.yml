@@ -8,6 +8,10 @@ os:
 
 osx_image: xcode7.3
 
+env:
+  - ALIEN_INSTALL_TYPE=share FORCE_MATRIX=1
+  - ALIEN_INSTALL_TYPE=system FORCE_MATRIX=0
+
 matrix:
   exclude:
     - os: osx
