@@ -11,6 +11,13 @@ WriteMakefile($abmm->mm_args(
   NAME          => 'Alien::KentSrc',
   VERSION_FROM  => 'lib/Alien/KentSrc.pm',
   MIN_PERL_VERSION => '5.008009',
+  META_MERGE => {
+    resources => {
+      bugtracker => 'https://github.com/kiwiroy/alien-kentsrc/issues',
+      homepage => 'https://github.com/kiwiroy/alien-kentsrc',
+      repository => 'https://github.com/kiwiroy/alien-kentsrc.git',
+    },
+  },
 ));
 
 sub MY::postamble {

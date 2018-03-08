@@ -1,6 +1,6 @@
 package Alien::KentSrc;
 
-our $VERSION = '0.4';
+our $VERSION = '0.4.099';
 
 use strict;
 use warnings;
