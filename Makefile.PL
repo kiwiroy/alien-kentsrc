@@ -10,6 +10,7 @@ WriteMakefile($abmm->mm_args(
   DISTNAME      => 'Alien-KentSrc',
   NAME          => 'Alien::KentSrc',
   VERSION_FROM  => 'lib/Alien/KentSrc.pm',
+  MIN_PERL_VERSION => '5.008009',
 ));
 
 sub MY::postamble {
