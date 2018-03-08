@@ -4,11 +4,6 @@ use warnings;
 use alienfile;
 use File::Spec::Functions qw{catfile};
 
-probe sub {
-  chomp(my $type = `uname -m`);
-  shift->runtime_prop->{kent_machtype} = $type;
-  return 'share';
-};
 probe [ 'env | grep -q ^KENT_SRC=' ];
 probe [ 'env | grep -q ^MACHTYPE=' ];
 
@@ -24,6 +19,15 @@ share {
   );
 
   plugin 'Extract' => ( format => 'zip' );
+
+  meta->before_hook(
+    build => sub {
+      my ($build) = @_;
+      chomp(my $type = `uname -m`);
+      $build->runtime_prop->{kent_machtype} = $type;
+      log("set MACHTYPE to $type");
+    }
+  );
 
   build [
     ## make jkweb.a
@@ -44,7 +48,7 @@ share {
 
   meta->after_hook(
     gather_share => sub {
-      my($build) = @_;
+      my ($build) = @_;
       $build->runtime_prop->{version} =
         join '.', split //, $build->runtime_prop->{version};
       $build->runtime_prop->{cflags} = join ' ',

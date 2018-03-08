@@ -1,4 +1,5 @@
 # -*- mode: perl; -*-
+requires 'perl' => '5.008009';
 requires 'Alien::Base' => 0;
 requires 'Alien::Base::ModuleBuild' => 0;
 requires 'Archive::Zip' => 0;
