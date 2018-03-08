@@ -1,6 +1,6 @@
 Revision history for perl distribution Alien-KentSrc
 
-0.4 Not Released
+0.4 2018-03-08T21:51:12+1300
  - change timing of setting machtype to avoid when users set ALIEN_INSTALL_TYPE
  - minimum perl is 5.8.9
 
