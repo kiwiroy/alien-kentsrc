@@ -24,8 +24,10 @@ Alien::KentSrc - Fetch/build/stash Kent src from L<http://hgdownload.cse.ucsc.ed
 
 =begin HTML
 
-<img src="https://img.shields.io/badge/perl-5.8.9+-blue.svg"
-     alt="Requires Perl 5.8.9+" />
+<a href="#">
+  <img src="https://img.shields.io/badge/perl-5.8.9+-blue.svg"
+       alt="Requires Perl 5.8.9+" />
+</a>
 
 <!-- CPAN -->
 <a href="https://metacpan.org/pod/Alien::KentSrc">
