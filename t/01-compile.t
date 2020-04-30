@@ -7,9 +7,10 @@ use Alien::KentSrc;
 alien_ok 'Alien::KentSrc';
 
 my $xs = do { local $/ = undef; <DATA> };
-xs_ok { xs => $xs, verbose => $ENV{TEST_VERBOSE} }, with_subtest {
-  is CompileTest->check(), 'CompileTest',
-    'CompileTest::check() returns CompileTest';
+xs_ok {xs => $xs, verbose => $ENV{TEST_VERBOSE}}, with_subtest {
+  my ($module) = @_;
+  is $module->check(), 'Test::Alien::XS::Mod0',
+    'check compiled ok and loadable';
 };
 
 done_testing;
@@ -39,7 +40,7 @@ __DATA__
 
 typedef struct bbiFile     *Bio__DB__bbiFile;
 
-MODULE = CompileTest PACKAGE = CompileTest
+MODULE = TA_MODULE PACKAGE = TA_MODULE
 
 char *check(class)
   char *class;

@@ -1,7 +1,9 @@
 Revision history for perl distribution Alien-KentSrc
 
 0.5 Not Released
- - 
+ - Add Alien::libuuid dependency as discovered by (@thibaultduponchelle)
+ - migrate to dzil
+ - test tidy
 
 0.4 2018-03-08T21:51:12+1300
  - change timing of setting machtype to avoid when users set ALIEN_INSTALL_TYPE

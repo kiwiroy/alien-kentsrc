@@ -1,7 +1,5 @@
 language: "perl"
-
-sudo: false
-
+dist: xenial
 os:
   - linux
   - osx
@@ -9,11 +7,13 @@ os:
 osx_image: xcode7.3
 
 env:
-  - ALIEN_INSTALL_TYPE=share TYPE_DEFINED=1
-  - ALIEN_INSTALL_TYPE=default TYPE_DEFINED=1
-  - TYPE_DEFINED=0
+  global:
+    - ALIEN_BUILD_PRELOAD=Probe::OverrideCI
+  matrix:
+    - ALIEN_INSTALL_TYPE_CI=share
+    - ALIEN_INSTALL_TYPE_CI=default
 
-matrix:
+jobs:
   exclude:
     - os: osx
       perl: "5.14"
@@ -34,4 +34,5 @@ before_install:
     fi
 
 install:
-  - cpanm --installdeps -n -q --with-develop .
+  - cpanm -n Alien::Build::Plugin::Probe::OverrideCI
+  - cpanm -n --installdeps .
